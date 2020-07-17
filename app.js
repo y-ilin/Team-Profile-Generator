@@ -13,6 +13,97 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function promptEmployeeType() {
+    return inquirer.prompt([
+        {
+        type: "list",
+        name: "employeeType",
+        message: "Select an employee type:",
+        choices: ["Manager", "Engineer", "Intern"],
+        default: "Manager"
+        }
+    ]);
+}
+// Prompt for all employees
+function promptEmployee() {
+    return inquirer.prompt([
+        {
+        type: "input",
+        name: "name",
+        message: "Employee's name: "
+        },
+        {
+        type: "input",
+        name: "id",
+        message: "Employee's ID: "
+        },
+        {
+        type: "input",
+        name: "email",
+        message: "Employee's email: "
+        }
+    ]);
+}
+// Prompt for new managers
+function promptManager() {
+    return inquirer.prompt([
+        {
+        type: "input",
+        name: "officeNumber",
+        message: "Manager's office number: "
+        }
+    ]);
+}
+// Prompt for new engineers
+function promptEngineer() {
+    return inquirer.prompt([
+        {
+        type: "input",
+        name: "github",
+        message: "Engineer's GitHub: "
+        }
+    ]);
+}
+// Prompt for new interns
+function promptIntern() {
+    return inquirer.prompt([
+        {
+        type: "input",
+        name: "school",
+        message: "Intern's school: "
+        }
+    ]);
+}
+
+// Main function
+async function init() {
+    try {
+        // Prompt user to choose between adding a new employee or terminating application
+
+        // Prompt user for what type of employee to add
+        const employeeType = (await promptEmployeeType()).employeeType;
+        const employeeInfo = await promptEmployee();
+
+        // Depending on employee type, prompt for other relevant information
+        if (employeeType === "Manager") {
+            const employeeMoreInfo = await promptManager();
+            employeeInfo.officeNumber = employeeMoreInfo.officeNumber;
+        } else if (employeeType === "Engineer") {
+            const employeeMoreInfo = await promptEngineer();
+            employeeInfo.github = employeeMoreInfo.github;
+        } else if (employeeType === "Intern") {
+            const employeeMoreInfo = await promptIntern();
+            employeeInfo.school = employeeMoreInfo.school;
+        }
+
+        console.log("employeeInfo: ", employeeInfo);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+init();
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -23,13 +114,3 @@ const render = require("./lib/htmlRenderer");
 // `output` folder. You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
