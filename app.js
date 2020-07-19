@@ -9,8 +9,24 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const Employee = require("./lib/Employee");
 
+// Assume the user intends to add a new employee profile at the initiation of the application.
+let addEmployee = "Yes";
+// Begin with empty employees array
+const employees = [];
 
+// Ask user if they would like to add another employee.
+function promptAddEmployee() {
+    return inquirer.prompt([
+        {
+        type: "list",
+        name: "addEmployee",
+        message: "Would you like to add a new employee profile? ",
+        choices: ["Yes", "No"]
+        }
+    ]);
+}
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 function promptEmployeeType() {
@@ -75,28 +91,49 @@ function promptIntern() {
     ]);
 }
 
+async function generateEmployeeProfile() {
+    // Prompt user for what type of employee to add
+    const employeeType = (await promptEmployeeType()).employeeType;
+    const employeeInfo = await promptEmployee();
+    let newEmployee = {};
+
+    // Depending on employee type, prompt for other relevant information
+    if (employeeType === "Manager") {
+        const employeeMoreInfo = await promptManager();
+        newEmployee = new Manager(employeeInfo.name, employeeInfo.id, employeeInfo.email, employeeMoreInfo.officeNumber)
+    } else if (employeeType === "Engineer") {
+        const employeeMoreInfo = await promptEngineer();
+        newEmployee = new Engineer(employeeInfo.name, employeeInfo.id, employeeInfo.email, employeeMoreInfo.github)
+    } else if (employeeType === "Intern") {
+        const employeeMoreInfo = await promptIntern();
+        newEmployee = new Intern(employeeInfo.name, employeeInfo.id, employeeInfo.email, employeeMoreInfo.school)
+    }
+
+    // Add new employee to employee array
+    employees.push(newEmployee);
+}
+
 // Main function
 async function init() {
     try {
-        // Prompt user to choose between adding a new employee or terminating application
-
-        // Prompt user for what type of employee to add
-        const employeeType = (await promptEmployeeType()).employeeType;
-        const employeeInfo = await promptEmployee();
-
-        // Depending on employee type, prompt for other relevant information
-        if (employeeType === "Manager") {
-            const employeeMoreInfo = await promptManager();
-            employeeInfo.officeNumber = employeeMoreInfo.officeNumber;
-        } else if (employeeType === "Engineer") {
-            const employeeMoreInfo = await promptEngineer();
-            employeeInfo.github = employeeMoreInfo.github;
-        } else if (employeeType === "Intern") {
-            const employeeMoreInfo = await promptIntern();
-            employeeInfo.school = employeeMoreInfo.school;
+        // Until user chooses to not add another employee profile, keep prompting to generate a new one
+        while (addEmployee === "Yes") {
+            await generateEmployeeProfile();
+            addEmployee = (await promptAddEmployee()).addEmployee;
+            console.log(addEmployee);
         }
 
-        console.log("employeeInfo: ", employeeInfo);
+        // When user chooses to stop adding employee profiles,
+        // Call 'render' function to generate and return HTML including all employee info
+        const htmlGenerated = await render(employees);
+        
+        // Write the returned HTML to a new file 'team.html'
+        fs.writeFile("./output/team.html", htmlGenerated, function(error){
+            if(error) {
+                return console.log(error)
+            }
+        })
+        
     } catch(error) {
         console.log(error);
     }
