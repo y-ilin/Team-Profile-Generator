@@ -120,7 +120,6 @@ async function init() {
         while (addEmployee === "Yes") {
             await generateEmployeeProfile();
             addEmployee = (await promptAddEmployee()).addEmployee;
-            console.log(addEmployee);
         }
 
         // When user chooses to stop adding employee profiles,
@@ -133,7 +132,6 @@ async function init() {
                 return console.log(error)
             }
         })
-        
     } catch(error) {
         console.log(error);
     }
