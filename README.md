@@ -16,7 +16,7 @@ As this application currently targets software engineering teams, profiles can b
 Users can input any number of team members, and on completion, the profiles will be rendered onto a very cute web page.
 
 ## Installation
-Clone or download the package and open terminal in the package directory. Then run the following command to install all the dependencies in the local node_modules folder:
+Clone or download the package and open terminal in the package directory. Then run the following command to install all the dependencies into the local node_modules folder:
 
 ```
 npm i
