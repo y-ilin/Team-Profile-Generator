@@ -1,0 +1,52 @@
+/* Header Area */
+.team-heading {
+  background-color: rgba(175, 255, 175, 0.5);
+}
+
+.team-heading h1 {
+  font-family: "DM Serif Display", serif;
+  font-size: 50px;
+}
+
+/* Team Profiles Area */
+.container {
+  font-family: "Roboto", sans-serif;
+  margin: 0px auto;
+}
+
+.team-area {
+  flex-wrap: wrap;
+}
+
+/* Profile Cards */
+.card {
+  margin: 10px 0px;
+  border: none;
+  box-shadow: -10px 10px 10px rgba(0, 63, 0, 0.5);
+}
+
+.card-header {
+  background-color: rgba(175, 255, 175, 0.3);
+}
+
+.card h2 {
+  font-family: "DM Serif Display", serif;
+  font-size: 30px;
+}
+
+.card h3 {
+  font-size: 25px;
+}
+
+.card ul {
+  font-size: 16px;
+}
+
+.card a {
+  color: rgba(0, 158, 0, 0.8);
+}
+
+.card-body {
+  padding-left: 0px;
+  padding-right: 0px;
+}
