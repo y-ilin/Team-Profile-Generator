@@ -35,7 +35,8 @@ The entire run-through of the application + the resulting HTML file will look so
 ![Run-through Screenshot](./assets/demo-screenshot.png)
 
 A video version of the full run-through:
-[![here](./assets/application-run-through.gif)](./assets/app-demo.gif)
+
+[![App run-through video](./assets/app-demo.gif)](./assets/app-demo.gif)
 
 The resulting web page will look something like:
 ![Example Generated Page Screenshot](./assets/example-generated.png)
