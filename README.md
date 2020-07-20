@@ -34,9 +34,7 @@ Your generated HTML file will be located in the "output" folder.
 The entire run-through of the application + the resulting HTML file will look something like this:
 ![Run-through Screenshot](./assets/demo-screenshot.png)
 
-A video version of the full run-through:
-
-[![App run-through video](./assets/app-demo.gif)](./assets/app-demo.gif)
+A video version of the full run-through can be found [here](https://github.com/y-ilin/Team-Profile-Generator/blob/master/assets/app-demo.mov).
 
 The resulting web page will look something like:
 ![Example Generated Page Screenshot](./assets/example-generated.png)
